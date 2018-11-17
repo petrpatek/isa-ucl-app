@@ -12,7 +12,6 @@ class SearchScreen extends React.Component {
     super(props);
   }
   render(){
-    console.log(firebase.auth().currentUser, 'USER');
     return(
       <KeyboardAwareScrollView
         style={{ backgroundColor: '#4c69a5' }}

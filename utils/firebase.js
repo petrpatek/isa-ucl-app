@@ -1,4 +1,5 @@
 import * as firebase from 'firebase';
+import 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyAOKYOubGuqs9_TBlFfkqP6eJ1kFOR-URk',
@@ -9,5 +10,25 @@ const firebaseConfig = {
   messagingSenderId: '914815302438'
 };
 
-const initFirebase = ()=> firebase.initializeApp(firebaseConfig);
-export default initFirebase;
+export const initFirebase = ()=> firebase.initializeApp(firebaseConfig);
+export const getDb = (app)=>{
+  const store =  firebase.firestore(app);
+  store.settings({timestampsInSnapshots: true});
+  return store;
+};
+export const loadUser =  (userId, db)=>{
+  return new Promise((resolve,reject)=>{
+    const docRef = db.collection('users').doc(userId);
+    docRef.get().then((doc)=> {
+      if (doc.exists) {
+        resolve(doc.data());
+      } else {
+        reject();
+      }
+    }).catch(function(error) {
+      reject(error);
+    });
+
+  });
+};
+export const loginUserWithEmail =  (email,password)=>firebase.auth().signInWithEmailAndPassword(email, password);

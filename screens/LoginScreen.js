@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import {
   View,
   Image,
@@ -12,37 +13,33 @@ import {
   RkStyleSheet,
 } from 'react-native-ui-kitten';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-
-import firebase from 'firebase';
+import {loginUserWithEmail, loadUser} from '../utils/firebase';
 import { FontAwesome } from '@expo/vector-icons';
-import { scaleVertical,scale } from '../utils/scale';
+
+import { authUser, authStarted, authError } from '../actions/AppActions';
+import { scaleVertical, scale } from '../utils/scale';
+
 class LoginScreen extends React.Component {
   constructor(props){
     super(props);
     this.state = {
       email: '',
-      password: '',
-      errorMessage: '',
-      isAuthInProgress: false
+      password: ''
     };
     this.signIn = this.signIn.bind(this);
     this.onChangeText = this.onChangeText.bind(this);
     this.getAuthFeedback = this.getAuthFeedback.bind(this);
   }
+
   renderImage() {
     return  <Image style={styles.image} source={require('../assets/images/ucl-logo.png')}/>;
   }
 
   signIn(){
     const {email,password} = this.state;
-    console.log(email,password, 'testum');
-    this.setState({isAuthInProgress: true});
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-      .then(() => this.props.navigation.navigate('Home'))
-      .catch(error => this.setState({ errorMessage: error.message}))
-      .finally(()=> this.setState({isAuthInProgress: false}));
+    this.props.authUser(email, password, this.props.db)
+      .then(()=> this.props.navigation.navigate('Home'));
+
   }
 
   onChangeText(text,type){
@@ -52,10 +49,9 @@ class LoginScreen extends React.Component {
   }
 
   getAuthFeedback(){
-    return this.state.isAuthInProgress ?
+    return this.props.isLoggingIn ?
       <ActivityIndicator size="large" color="#002882" /> :
-      <RkText style={styles.error}>{this.state.errorMessage}</RkText>;
-
+      <RkText style={styles.error}>{this.props.error}</RkText>;
   }
 
   render(){
@@ -154,9 +150,27 @@ const styles = RkStyleSheet.create(theme => ({
   },
 }));
 
-LoginScreen.protoTypes ={
+const mapDispatchToProps = (dispatch) => ({
+  authUser: (email, password, db) => dispatch(authUser(email, password, db)),
+});
+
+const mapStateToProps = ({app}) => {
+  return{
+    isLoggingIn: app.isLoggingIn,
+    error: app.error,
+    db: app.db,
+    currentUser: app.currentUser
+  };};
+
+LoginScreen.propTypes ={
   navigation: PropTypes.shape({
     goBack: PropTypes.func.isRequired,
     navigate: PropTypes.func.isRequired
-  })};
-export default LoginScreen;
+  }),
+  authUser: PropTypes.func.isRequired,
+  isLoggingIn: PropTypes.bool.isRequired,
+  error: PropTypes.string.isRequired,
+  db: PropTypes.object.isRequired,
+  currentUser: PropTypes.object
+};
+export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
