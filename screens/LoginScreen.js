@@ -13,13 +13,16 @@ import {
   RkStyleSheet,
 } from 'react-native-ui-kitten';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import {loginUserWithEmail, loadUser} from '../utils/firebase';
 import { FontAwesome } from '@expo/vector-icons';
 
-import { authUser, authStarted, authError } from '../actions/AppActions';
+import { authUser } from '../actions/AppActions';
 import { scaleVertical, scale } from '../utils/scale';
 
 class LoginScreen extends React.Component {
+  static navigationOptions = {
+    header: null,
+  };
+
   constructor(props){
     super(props);
     this.state = {
@@ -87,14 +90,6 @@ class LoginScreen extends React.Component {
           <View style={styles.signIn}>
             <RkButton rkType='primary' style={styles.button} onPress={this.signIn} >Přihlásit se</RkButton>
           </View>
-          <View style={styles.footer}>
-            <View style={styles.textRow}>
-              <RkText rkType='primary3'>Don’t have an account?</RkText>
-              <RkButton rkType='clear' onPress={this.onSignUpButtonPressed}>
-                <RkText rkType='header6'>Sign up now</RkText>
-              </RkButton>
-            </View>
-          </View>
         </View>
       </KeyboardAwareScrollView>
     );
@@ -141,12 +136,16 @@ const styles = RkStyleSheet.create(theme => ({
     marginBottom: scale(30)
   },
   button: {
-    flex: 1
+    flex: 1,
+    borderRadius: 16,
+    height: scaleVertical(35),
+    fontSize: scaleVertical(20),
   },
   footer: {},
   error: {
     fontSize: scaleVertical(14),
-    color: 'red'
+    color: 'red',
+    minHeight: scaleVertical(40)
   },
 }));
 

@@ -9,15 +9,24 @@ export const CONNECT_DB = 'CONNECT_DB';
 export const  authUser = (email, password, db)=>{
   return async (dispatch)=> {
     dispatch(authStarted());
-    return loginUserWithEmail(email, password)
-      .then(({user}) => {
-        loadUser(user.uid, db)
-          .then(userDetail => {
-            return dispatch(authSuccess(userDetail));
-          })
-          .catch((e) => dispatch(authError(e.message)));
-      })
-      .catch((e) => dispatch(authError(e.message)));
+    return new Promise((resolve,reject)=>{
+      loginUserWithEmail(email, password)
+        .then(({user}) => {
+          loadUser(user.uid, db)
+            .then(userDetail => {
+              resolve();
+              return dispatch(authSuccess(userDetail));
+            })
+            .catch((e) =>{
+              dispatch(authError(e.message));
+              reject(e);
+            });
+        })
+        .catch((e) =>{
+          dispatch(authError(e.message));
+          reject(e);
+        });
+    });
   };
 };
 
