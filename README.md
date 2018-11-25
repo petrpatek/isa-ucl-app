@@ -16,3 +16,9 @@ http://www.awesome-react-native.com
 
 ## 3. Used frameworks
 https://akveo.github.io/react-native-ui-kitten/#/home
+
+## 4. React native debugger installation 
+https://github.com/jhen0409/react-native-debugger
+brew update && brew cask install react-native-debugger
+
+run debugger: ``open "rndebugger://set-debugger-loc?host=localhost&port=19001"``
