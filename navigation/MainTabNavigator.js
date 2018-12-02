@@ -6,6 +6,7 @@ import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import ExamsScreen from '../screens/ExamsScreen';
+import MessagesScreen from '../screens/MessagesScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 
 
@@ -20,8 +21,8 @@ HomeStack.navigationOptions = {
       focused={focused}
       name={
         Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
+          ? `ios-school`
+          : 'md-school'
       }
     />
   ),
@@ -37,11 +38,28 @@ ExamsStack.navigationOptions = {
     <TabBarIcon
       focused={focused}
       name={
-        Platform.OS === 'ios' ? 'ios-create' : 'md-pencil'
+        Platform.OS === 'ios' ? 'ios-create' : 'pencil'
       }
     />
   ),
 };
+
+const MessagesStack = createStackNavigator({
+    Messages: MessagesScreen,
+});
+
+MessagesStack.navigationOptions = {
+    tabBarLabel: 'Messeges',
+    tabBarIcon: ({ focused }) => (
+        <TabBarIcon
+            focused={focused}
+            name={
+                Platform.OS === 'ios' ? 'ios-chatbubbles' : 'md-chatboxes'
+            }
+        />
+    ),
+};
+
 
 const LinksStack = createStackNavigator({
   Links: LinksScreen,
@@ -75,5 +93,6 @@ export default createBottomTabNavigator({
   HomeStack,
   LinksStack,
   ExamsStack,
+  MessagesStack,
   SettingsStack
 });
