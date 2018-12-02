@@ -6,7 +6,9 @@ import configureStore from './store/configureStore';
 import AppNavigator from './navigation/AppNavigator';
 import {initFirebase, getDb} from './utils/firebase';
 import {connectDb} from './actions/AppActions';
+import bootstrap from './bootstrap';
 
+bootstrap();
 const store = configureStore();
 export default class App extends React.Component {
   state = {

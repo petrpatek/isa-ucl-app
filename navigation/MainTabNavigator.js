@@ -4,9 +4,9 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import SearchScreen from '../screens/SearchScreen';
+import SubjectsScreen from '../screens/SubjectsScreen';
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -42,11 +42,11 @@ SearchStack.navigationOptions = {
   ),
 };
 
-const LinksStack = createStackNavigator({
-  Links: LinksScreen,
+const SubjectStack = createStackNavigator({
+  Links: SubjectsScreen,
 });
 
-LinksStack.navigationOptions = {
+SubjectStack.navigationOptions = {
   tabBarLabel: 'Subjects',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -72,7 +72,7 @@ SettingsStack.navigationOptions = {
 
 export default createBottomTabNavigator({
   HomeStack,
-  LinksStack,
+  SubjectStack,
   SettingsStack,
   SearchStack
 });
