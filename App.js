@@ -51,6 +51,7 @@ export default class App extends React.Component {
       Asset.loadAsync([
         require('./assets/images/robot-dev.png'),
         require('./assets/images/ucl-logo.png'),
+        require('./assets/images/intro.jpg'),
       ]),
       Font.loadAsync({
         // This is the font that we are using for our tab bar

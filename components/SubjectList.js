@@ -19,6 +19,7 @@ export class SubjectList extends React.Component {
       navigate: PropTypes.func.isRequired
     }),
     items: PropTypes.array.isRequired,
+    route: PropTypes.string.isRequired
   };
 
   constructor(props) {
@@ -31,7 +32,7 @@ export class SubjectList extends React.Component {
   }
 
   onItemPressed = (item) => {
-    this.props.navigation.navigate(item.id);
+    this.props.navigation.navigate(this.props.route, {item: item});
   };
 
   renderItems = () => this.props.items.map(item => (

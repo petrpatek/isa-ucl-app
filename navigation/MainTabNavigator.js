@@ -7,6 +7,7 @@ import HomeScreen from '../screens/HomeScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import SearchScreen from '../screens/SearchScreen';
 import SubjectsScreen from '../screens/SubjectsScreen';
+import SubjectScreen from '../screens/SubjectScreen';
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -44,6 +45,7 @@ SearchStack.navigationOptions = {
 
 const SubjectStack = createStackNavigator({
   Links: SubjectsScreen,
+  Subject: SubjectScreen
 });
 
 SubjectStack.navigationOptions = {
