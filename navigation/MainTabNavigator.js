@@ -5,13 +5,10 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import SettingsScreen from '../screens/SettingsScreen';
-import SearchScreen from '../screens/SearchScreen';
 import SubjectsScreen from '../screens/SubjectsScreen';
 import SubjectScreen from '../screens/SubjectScreen';
-import LinksScreen from '../screens/LinksScreen';
 import ExamsScreen from '../screens/ExamsScreen';
 import MessagesScreen from '../screens/MessagesScreen';
-import SettingsScreen from '../screens/SettingsScreen';
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -24,7 +21,7 @@ HomeStack.navigationOptions = {
       focused={focused}
       name={
         Platform.OS === 'ios'
-          ? `ios-school`
+          ? 'ios-school'
           : 'md-school'
       }
     />
@@ -50,28 +47,23 @@ ExamsStack.navigationOptions = {
 const SubjectStack = createStackNavigator({
   Links: SubjectsScreen,
   Subject: SubjectScreen
-  )}
+});
 
-  const MessagesStack = createStackNavigator({
-    Messages: MessagesScreen,
+const MessagesStack = createStackNavigator({
+  Messages: MessagesScreen,
 });
 
 MessagesStack.navigationOptions = {
-    tabBarLabel: 'Messeges',
-    tabBarIcon: ({ focused }) => (
-        <TabBarIcon
-            focused={focused}
-            name={
-                Platform.OS === 'ios' ? 'ios-chatbubbles' : 'md-chatboxes'
-            }
-        />
-    ),
+  tabBarLabel: 'Messeges',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={
+        Platform.OS === 'ios' ? 'ios-chatbubbles' : 'md-chatboxes'
+      }
+    />
+  ),
 };
-
-
-const LinksStack = createStackNavigator({
-  Links: LinksScreen,
-});
 
 SubjectStack.navigationOptions = {
   tabBarLabel: 'Subjects',
@@ -100,9 +92,6 @@ SettingsStack.navigationOptions = {
 export default createBottomTabNavigator({
   HomeStack,
   SubjectStack,
-  SettingsStack,
-  SearchStack,
-  LinksStack,
   ExamsStack,
   MessagesStack,
   SettingsStack
