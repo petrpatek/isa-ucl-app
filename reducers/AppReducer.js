@@ -3,8 +3,8 @@ import {AUTH_USER, AUTH_STARTED, AUTH_ERROR, CONNECT_DB, AUTH_SUCCESS} from '../
 const INITIAL_STATE = {
   currentUser: {
     name:{
-      first: 'Petr',
-      last: 'pátek'
+      first: 'Jan',
+      last: 'Bárta',
     },
     type: 'STUDENT'
   },
@@ -12,6 +12,7 @@ const INITIAL_STATE = {
   error: '',
   db: null
 };
+
 
 const AppReducer =  (state = INITIAL_STATE, action) => {
   switch (action.type) {
