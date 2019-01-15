@@ -34,6 +34,13 @@ class LoginScreen extends React.Component {
     this.getAuthFeedback = this.getAuthFeedback.bind(this);
   }
 
+  componentDidMount(){
+    console.log(this.props.currentUser, 'USER');
+    if(this.props.currentUser){
+      this._goHome();
+    }
+  }
+
   renderImage() {
     return  <Image style={styles.image} source={require('../assets/images/ucl-logo.png')}/>;
   }
@@ -41,7 +48,7 @@ class LoginScreen extends React.Component {
   signIn(){
     const {email,password} = this.state;
     this.props.authUser(email, password, this.props.db)
-      .then(()=> this.props.navigation.navigate('Home'));
+      .then(this._goHome);
 
   }
 
@@ -56,7 +63,9 @@ class LoginScreen extends React.Component {
       <ActivityIndicator size="large" color="#002882" /> :
       <RkText style={styles.error}>{this.props.error}</RkText>;
   }
-
+  _goHome(){
+    this.props.navigation.navigate('Home');
+  }
   render(){
     return(
       <KeyboardAwareScrollView
@@ -139,7 +148,6 @@ const styles = RkStyleSheet.create(theme => ({
     flex: 1,
     borderRadius: 16,
     height: scaleVertical(35),
-    fontSize: scaleVertical(20),
   },
   footer: {},
   error: {

@@ -5,8 +5,10 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
+import ExamsScreen from '../screens/ExamsScreen';
+import MessagesScreen from '../screens/MessagesScreen';
 import SettingsScreen from '../screens/SettingsScreen';
-import SearchScreen from '../screens/SearchScreen';
+
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -19,28 +21,45 @@ HomeStack.navigationOptions = {
       focused={focused}
       name={
         Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
+          ? `ios-school`
+          : 'md-school'
       }
     />
   ),
 };
 
-const SearchStack = createStackNavigator({
-  Search: SearchScreen,
+const ExamsStack = createStackNavigator({
+  Exams: ExamsScreen,
 });
 
-SearchStack.navigationOptions = {
-  tabBarLabel: 'Search',
+ExamsStack.navigationOptions = {
+  tabBarLabel: 'Exams',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
       name={
-        Platform.OS === 'ios' ? 'ios-search' : 'md-search'
+        Platform.OS === 'ios' ? 'ios-create' : 'pencil'
       }
     />
   ),
 };
+
+const MessagesStack = createStackNavigator({
+    Messages: MessagesScreen,
+});
+
+MessagesStack.navigationOptions = {
+    tabBarLabel: 'Messeges',
+    tabBarIcon: ({ focused }) => (
+        <TabBarIcon
+            focused={focused}
+            name={
+                Platform.OS === 'ios' ? 'ios-chatbubbles' : 'md-chatboxes'
+            }
+        />
+    ),
+};
+
 
 const LinksStack = createStackNavigator({
   Links: LinksScreen,
@@ -73,6 +92,7 @@ SettingsStack.navigationOptions = {
 export default createBottomTabNavigator({
   HomeStack,
   LinksStack,
-  SettingsStack,
-  SearchStack
+  ExamsStack,
+  MessagesStack,
+  SettingsStack
 });

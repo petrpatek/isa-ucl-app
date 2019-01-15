@@ -1,11 +1,18 @@
 import {AUTH_USER, AUTH_STARTED, AUTH_ERROR, CONNECT_DB, AUTH_SUCCESS} from '../actions/AppActions';
 
 const INITIAL_STATE = {
-  currentUser: null,
+  currentUser: {
+    name:{
+      first: 'Jan',
+      last: 'Bárta',
+    },
+    type: 'STUDENT'
+  },
   isLoggingIn: false,
   error: '',
   db: null
 };
+
 
 const AppReducer =  (state = INITIAL_STATE, action) => {
   switch (action.type) {
