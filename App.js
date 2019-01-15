@@ -6,7 +6,9 @@ import configureStore from './store/configureStore';
 import AppNavigator from './navigation/AppNavigator';
 import {initFirebase, getDb} from './utils/firebase';
 import {connectDb} from './actions/AppActions';
+import bootstrap from './bootstrap';
 
+bootstrap();
 const store = configureStore();
 export default class App extends React.Component {
   state = {
@@ -49,6 +51,7 @@ export default class App extends React.Component {
       Asset.loadAsync([
         require('./assets/images/robot-dev.png'),
         require('./assets/images/ucl-logo.png'),
+        require('./assets/images/intro.jpg'),
       ]),
       Font.loadAsync({
         // This is the font that we are using for our tab bar

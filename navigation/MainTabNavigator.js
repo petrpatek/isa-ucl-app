@@ -4,11 +4,14 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
+import SettingsScreen from '../screens/SettingsScreen';
+import SearchScreen from '../screens/SearchScreen';
+import SubjectsScreen from '../screens/SubjectsScreen';
+import SubjectScreen from '../screens/SubjectScreen';
 import LinksScreen from '../screens/LinksScreen';
 import ExamsScreen from '../screens/ExamsScreen';
 import MessagesScreen from '../screens/MessagesScreen';
 import SettingsScreen from '../screens/SettingsScreen';
-
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -44,7 +47,12 @@ ExamsStack.navigationOptions = {
   ),
 };
 
-const MessagesStack = createStackNavigator({
+const SubjectStack = createStackNavigator({
+  Links: SubjectsScreen,
+  Subject: SubjectScreen
+  )}
+
+  const MessagesStack = createStackNavigator({
     Messages: MessagesScreen,
 });
 
@@ -65,7 +73,7 @@ const LinksStack = createStackNavigator({
   Links: LinksScreen,
 });
 
-LinksStack.navigationOptions = {
+SubjectStack.navigationOptions = {
   tabBarLabel: 'Subjects',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -91,6 +99,9 @@ SettingsStack.navigationOptions = {
 
 export default createBottomTabNavigator({
   HomeStack,
+  SubjectStack,
+  SettingsStack,
+  SearchStack,
   LinksStack,
   ExamsStack,
   MessagesStack,
