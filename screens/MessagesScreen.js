@@ -7,7 +7,7 @@ import {
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { scaleVertical,scale } from '../utils/scale';
 import firebase from 'firebase';
-class SearchScreen extends React.Component {
+class MessagesScreen extends React.Component {
   constructor(props){
     super(props);
   }
@@ -20,7 +20,7 @@ class SearchScreen extends React.Component {
         scrollEnabled={false}
       >
         <RkText>
-          Hledej
+          Here is chat
         </RkText>
       </KeyboardAwareScrollView>
     );
@@ -46,9 +46,9 @@ const styles = RkStyleSheet.create(theme => ({
   }
 }));
 
-SearchScreen.protoTypes ={
+MessagesScreen.protoTypes ={
   navigation: PropTypes.shape({
     goBack: PropTypes.func.isRequired,
     navigate: PropTypes.func.isRequired
   })};
-export default SearchScreen;
+export default MessagesScreen;
