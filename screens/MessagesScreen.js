@@ -28,6 +28,7 @@ const NavigationType = shape({
 });
 
 const moment = require('moment');
+data.populateData();
 class MessagesScreen extends React.Component {
     static propTypes = {
         navigation: NavigationType.isRequired,
@@ -110,17 +111,17 @@ class MessagesScreen extends React.Component {
         );
     };
 
-    render = () => (
-        <FlatList
-            style={styles.root}
-            data={this.state.data.filtered}
-            extraData={this.state}
-            ListHeaderComponent={this.renderHeader}
-            ItemSeparatorComponent={this.renderSeparator}
-            keyExtractor={this.extractItemKey}
-            renderItem={this.renderItem}
+    render = () => {
+        return <FlatList
+          style={styles.root}
+          data={this.state.data.filtered}
+          extraData={this.state}
+          ListHeaderComponent={this.renderHeader}
+          ItemSeparatorComponent={this.renderSeparator}
+          keyExtractor={this.extractItemKey}
+          renderItem={this.renderItem}
         />
-    );
+    };
 }
 
 const styles = RkStyleSheet.create(theme => ({

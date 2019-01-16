@@ -11,6 +11,7 @@ export class SubjectsScreen extends React.Component {
   constructor(props) {
     super(props);
     this.item = props.navigation.getParam('item');
+
     this.state = {
       modalVisible: false
     };
