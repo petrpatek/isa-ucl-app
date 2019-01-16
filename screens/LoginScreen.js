@@ -32,6 +32,7 @@ class LoginScreen extends React.Component {
     this.signIn = this.signIn.bind(this);
     this.onChangeText = this.onChangeText.bind(this);
     this.getAuthFeedback = this.getAuthFeedback.bind(this);
+    this._goHome = this._goHome.bind(this);
   }
 
   componentDidMount(){

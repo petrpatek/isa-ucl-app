@@ -47,38 +47,6 @@ export class SubjectsScreen extends React.Component {
   render() {
     return (
       <View style={styles.root}>
-        <RkButton onPress={this._toggleModal}>
-          Zapsat se na zkoušku
-        </RkButton>
-        <Modal
-          animationType="none"
-          transparent={false}
-          visible={this.state.modalVisible}
-        >
-          <View style={{marginTop: 46, marginLeft: 16}}>
-            <View>
-              <RkText>Hello World!</RkText>
-
-              <RkPicker
-                title='Set Date'
-                data={[
-                  [{key: 1, value: 'Jun'},
-                    {key: 2, value: 'Feb'},
-                    {key: 3, value: 'Mar'},
-                    {key: 4, value: 'Apr'}]
-                ]}
-                visible={this.state.pikerVisible}
-                onConfirm={(data) => {
-                }}
-                onCancel={() => this.setState({pikerVisible: false})}/>
-              <TouchableHighlight
-                onPress={this._toggleModal}
-              >
-                <RkText>Hide Modal</RkText>
-              </TouchableHighlight>
-            </View>
-          </View>
-        </Modal>
         <View>
           <RkText style={styles.heading}>
             Study Materials

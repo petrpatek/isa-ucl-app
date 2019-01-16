@@ -1,13 +1,7 @@
 import {AUTH_USER, AUTH_STARTED, AUTH_ERROR, CONNECT_DB, AUTH_SUCCESS} from '../actions/AppActions';
 
 const INITIAL_STATE = {
-  currentUser: {
-    name:{
-      first: 'Jan',
-      last: 'Bárta',
-    },
-    type: 'STUDENT'
-  },
+  currentUser: null,
   isLoggingIn: false,
   error: '',
   db: null
