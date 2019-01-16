@@ -9,6 +9,7 @@ import SubjectsScreen from '../screens/SubjectsScreen';
 import SubjectScreen from '../screens/SubjectScreen';
 import ExamsScreen from '../screens/ExamsScreen';
 import MessagesScreen from '../screens/MessagesScreen';
+import { ChatScreen } from '../screens/ChatScreen';
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -51,6 +52,7 @@ const SubjectStack = createStackNavigator({
 
 const MessagesStack = createStackNavigator({
   Messages: MessagesScreen,
+  Chat: ChatScreen,
 });
 
 MessagesStack.navigationOptions = {
@@ -94,5 +96,5 @@ export default createBottomTabNavigator({
   SubjectStack,
   ExamsStack,
   MessagesStack,
-  SettingsStack
+  SettingsStack,
 });
