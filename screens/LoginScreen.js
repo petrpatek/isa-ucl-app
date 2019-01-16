@@ -35,7 +35,6 @@ class LoginScreen extends React.Component {
   }
 
   componentDidMount(){
-    // console.log(this.props.currentUser, 'USER');
     if(this.props.currentUser){
       this._goHome();
     }
