@@ -107,7 +107,7 @@ export default class HomeScreen extends React.Component {
                     <RkText rkType='secondary1 hintColor'>Passed subjects</RkText>
                 </View>
                 <View style={styles.section}>
-                    <RkText rkType='header3' style={styles.space}>{"3th"}</RkText>
+                    <RkText rkType='header3' style={styles.space}>{"3rd"}</RkText>
                     <RkText rkType='secondary1 hintColor'>Year of study</RkText>
                 </View>
             </View>
