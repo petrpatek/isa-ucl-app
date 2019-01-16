@@ -1,4 +1,4 @@
-const notifications = [
+const messages = [
     {
         id: 1,
         type: 'follow',
@@ -19,4 +19,4 @@ const notifications = [
     },
 ];
 
-export default notifications;
+export default messages;
