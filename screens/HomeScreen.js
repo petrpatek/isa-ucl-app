@@ -93,7 +93,6 @@ export default class HomeScreen extends React.Component {
     return (
 
         <ScrollView style={styles.root}>
-            {console.log(this.state.data)}
             <View style={[styles.header, styles.bordered]}>
                 <Avatar img={Photo} rkType='big' />
                 <RkText rkType='header1'>{"Jan Bárta"}</RkText>

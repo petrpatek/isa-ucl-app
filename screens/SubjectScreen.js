@@ -28,7 +28,6 @@ export class SubjectsScreen extends React.Component {
   };
 
   static navigationOptions({navigation}) {
-    console.log(navigation.state.params);
     return {
       title: navigation.state.params.item.title
     };
@@ -45,7 +44,6 @@ export class SubjectsScreen extends React.Component {
   }
 
   render() {
-    console.log(this.props, 'props');
     return (
       <View style={styles.root}>
         <RkButton onPress={this._toggleModal}>

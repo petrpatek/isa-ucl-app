@@ -30,7 +30,6 @@ export default class StudyMaterials extends React.Component {
     this.props.navigation.navigate('Article', { id: item.id });
   };
   renderImage(photo) {
-    console.log(photo, 'photo');
     return  <Image rkCardImg source={Photo} />;
   }
   renderItem = ({ item }) => (
