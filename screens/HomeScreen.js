@@ -112,7 +112,7 @@ export default class HomeScreen extends React.Component {
                 </View>
             </View>
             <View style={styles.container}>
-                <Table borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}}>
+                <Table borderStyle={{borderWidth: 1.5, borderColor: '#c8e1ff'}}>
                     <Row data={this.state.tableHead} style={styles.head} textStyle={styles.text}/>
                     <Rows data={this.state.tableData} textStyle={styles.text}/>
                 </Table>
@@ -125,29 +125,6 @@ export default class HomeScreen extends React.Component {
             />
         </ScrollView>
     );
-  }
-
-  _maybeRenderDevelopmentModeWarning() {
-    if (__DEV__) {
-      const learnMoreButton = (
-        <Text onPress={this._handleLearnMorePress} style={styles.helpLinkText}>
-          Learn more
-        </Text>
-      );
-
-      return (
-        <Text style={styles.developmentModeText}>
-          Development mode is enabled, your app will be slower but you can use useful development
-          tools. {learnMoreButton}
-        </Text>
-      );
-    } else {
-      return (
-        <Text style={styles.developmentModeText}>
-          You are not in development mode, your app will run at full speed.
-        </Text>
-      );
-    }
   }
 
   _handleLearnMorePress = () => {
@@ -180,7 +157,7 @@ const styles = RkStyleSheet.create(theme => ({
     },
     bordered: {
         borderBottomWidth: 1,
-        borderColor: theme.colors.border.base,
+        borderColor: "#c8e1ff",
     },
     section: {
         flex: 1,
@@ -188,6 +165,7 @@ const styles = RkStyleSheet.create(theme => ({
     },
     space: {
         marginBottom: 3,
+        fontWeight: "bold"
     },
     separator: {
         backgroundColor: theme.colors.border.base,
@@ -205,10 +183,13 @@ const styles = RkStyleSheet.create(theme => ({
         flex: 1,
         alignSelf: 'center',
     },
-    container: { flex: 1, paddingBottom: 32, backgroundColor: '#fff' },
+    container: { flex: 1, paddingBottom: 8, backgroundColor: '#fff' },
     head: { height: 40, backgroundColor: '#f1f8ff' },
     text: {
-        marginBottom: 5,
+        marginBottom: 8,
+        marginLeft: 8,
+        marginTop: 8,
+        textAlign: "center"
     },
     content: {
         flex: 1,
@@ -232,8 +213,8 @@ const styles = RkStyleSheet.create(theme => ({
     notContainer: {
         padding: 16,
         flexDirection: 'row',
-        borderBottomWidth: 1,
-        borderColor: theme.colors.border.base,
+        borderBottomWidth: 1.5,
+        borderColor: "#c8e1ff",
         alignItems: 'flex-start',
     },
     notContent: {

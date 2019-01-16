@@ -1,54 +1,158 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {
-  RkStyleSheet,
-  RkText
+    FlatList,
+    View,
+    StyleSheet,
+    TouchableOpacity,
+} from 'react-native';
+import _ from 'lodash';
+import {
+    RkStyleSheet,
+    RkText,
+    RkTextInput,
 } from 'react-native-ui-kitten';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { scaleVertical,scale } from '../utils/scale';
-import firebase from 'firebase';
+import { Avatar } from '../components/avatar/avatar';
+import { data } from '../data';
+import PropTypes from "prop-types";
+
+const functionTypes = {
+    goBack: PropTypes.func,
+    navigate: PropTypes.func,
+};
+
+const shape = (propShape) => PropTypes.shape(propShape);
+
+const NavigationType = shape({
+    goBack: functionTypes.goBack.isRequired,
+    navigate: functionTypes.navigate.isRequired,
+});
+
+const moment = require('moment');
 class MessagesScreen extends React.Component {
-  constructor(props){
-    super(props);
-  }
-  render(){
-    return(
-      <KeyboardAwareScrollView
-        style={{ backgroundColor: '#4c69a5' }}
-        resetScrollToCoords={{ x: 0, y: 0 }}
-        contentContainerStyle={styles.screen}
-        scrollEnabled={false}
-      >
-        <RkText>
-          Here is chat
-        </RkText>
-      </KeyboardAwareScrollView>
+    static propTypes = {
+        navigation: NavigationType.isRequired,
+    };
+    static navigationOptions = {
+        title: 'Chats List'.toUpperCase(),
+    };
+
+    state = {
+        data: {
+            original: data.getChatList(),
+            filtered: data.getChatList(),
+        },
+    };
+
+    extractItemKey = (item) => `${item.withUser.id}`;
+
+    onInputChanged = (event) => {
+        const pattern = new RegExp(event.nativeEvent.text, 'i');
+        const chats = _.filter(this.state.data.original, chat => {
+            const filterResult = {
+                firstName: chat.withUser.firstName.search(pattern),
+                lastName: chat.withUser.lastName.search(pattern),
+            };
+            return filterResult.firstName !== -1 || filterResult.lastName !== -1 ? chat : undefined;
+        });
+        this.setState({
+            data: {
+                original: this.state.data.original,
+                filtered: chats,
+            },
+        });
+    };
+
+    onItemPressed = (item) => {
+        const navigationParams = { userId: item.withUser.id };
+        this.props.navigation.navigate('Chat', navigationParams);
+    };
+
+    renderSeparator = () => (
+        <View style={styles.separator} />
     );
-  }
+
+    renderInputLabel = () => (
+        <RkText rkType='awesome'>{"Search"}</RkText>
+    );
+
+    renderHeader = () => (
+        <View style={styles.searchContainer}>
+            <RkTextInput
+                autoCapitalize='none'
+                autoCorrect={false}
+                onChange={this.onInputChanged}
+                label={this.renderInputLabel()}
+                rkType='row'
+                placeholder='Search'
+            />
+        </View>
+    );
+
+    renderItem = ({ item }) => {
+        const last = item.messages[item.messages.length - 1];
+        return (
+            <TouchableOpacity onPress={() => this.onItemPressed(item)}>
+                <View style={styles.container}>
+                    <Avatar rkType='circle' style={styles.avatar} img={item.withUser.photo} />
+                    <View style={styles.content}>
+                        <View style={styles.contentHeader}>
+                            <RkText rkType='header5'>{`${item.withUser.firstName} ${item.withUser.lastName}`}</RkText>
+                            <RkText rkType='secondary4 hintColor'>
+                                {moment().add(last.time, 'seconds').format('LT')}
+                            </RkText>
+                        </View>
+                        <RkText numberOfLines={2} rkType='primary3 mediumLine' style={{ paddingTop: 5 }}>
+                            {last.text}
+                        </RkText>
+                    </View>
+                </View>
+            </TouchableOpacity>
+        );
+    };
+
+    render = () => (
+        <FlatList
+            style={styles.root}
+            data={this.state.data.filtered}
+            extraData={this.state}
+            ListHeaderComponent={this.renderHeader}
+            ItemSeparatorComponent={this.renderSeparator}
+            keyExtractor={this.extractItemKey}
+            renderItem={this.renderItem}
+        />
+    );
 }
 
 const styles = RkStyleSheet.create(theme => ({
-  screen: {
-    padding: scaleVertical(16),
-    flex: 1,
-    justifyContent: 'space-between',
-    backgroundColor: theme.colors.screen.base,
-  },
-  title:{
-    fontSize: scale(26)
-  },
-  subTitle:{
-    fontSize: scale(18)
-  },
-  content: {
-    justifyContent: 'space-between',
-    alignContent: 'center'
-  }
+    root: {
+        backgroundColor: theme.colors.screen.base,
+    },
+    searchContainer: {
+        backgroundColor: theme.colors.screen.bold,
+        paddingHorizontal: 16,
+        paddingVertical: 10,
+        height: 60,
+        alignItems: 'center',
+    },
+    container: {
+        paddingLeft: 19,
+        paddingRight: 16,
+        paddingBottom: 12,
+        paddingTop: 7,
+        flexDirection: 'row',
+    },
+    content: {
+        marginLeft: 16,
+        flex: 1,
+    },
+    contentHeader: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 6,
+    },
+    separator: {
+        height: StyleSheet.hairlineWidth,
+        backgroundColor: theme.colors.border.base,
+    },
 }));
-
-MessagesScreen.protoTypes ={
-  navigation: PropTypes.shape({
-    goBack: PropTypes.func.isRequired,
-    navigate: PropTypes.func.isRequired
-  })};
 export default MessagesScreen;
